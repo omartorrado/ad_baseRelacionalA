@@ -18,16 +18,20 @@ import java.util.logging.Logger;
  */
 public class BaseRelacionalA {
     
-    Connection conn;
+    static Connection conn;
+    static Statement st;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        conexion();
+        insireProduto("p1","parafusos",3);
+        insireProduto("p2","cravos",4);
+        insireProduto("p3","tachas",5);
     }
     
-    public void conexion(){
+    public static void conexion(){
             String driver = "jdbc:oracle:thin:";
             String host = "localhost.localdomain"; // tambien puede ser una ip como "192.168.1.14"
             String porto = "1521";
@@ -43,29 +47,30 @@ public class BaseRelacionalA {
         }
     }
     
-    public void insireProduto(String codigo,String descricion,String prezo){
+    public static void insireProduto(String codigo,String descricion,int prezo){
         try {
-            Statement st=conn.createStatement();
-            st.executeUpdate("INSERT INTO produtos values ('"+codigo+"','"+descricion+"','"+prezo+"');");
+            st=conn.createStatement();
+            st.executeUpdate("insert into produtos values('"+codigo+"','"+descricion+"',"+prezo+")");
+            System.out.println("Producto insertado con exito");
         } catch (SQLException ex) {
-            Logger.getLogger(BaseRelacionalA.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Ha ocurrido un error, vuelva a intentarlo");
         }
         
     }
     
-    public void listaProdutos(){
+    public static void listaProdutos(){
         
     }
     
-    public void actualizaPre(){
+    public static void actualizaPre(){
         
     }
     
-    public void borrarFila(){
+    public static void borrarFila(){
         
     }
     
-    public void amosarFila(){
+    public static void amosarFila(){
         
     }
 }
